@@ -1,15 +1,27 @@
-name: Main Workflow - Cloud
-on: [push]
+name: K6 Load Testing
+
+on:
+  push:
+    branches: [main]
+
 jobs:
-  build:
-    name: Run k6 test
+  k6_test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run k6 local test
-        uses: grafana/k6-action@v0.3.0
-        with:
-          filename: scripts/smoke.js
-      - name: Send results to K6 Cloud
-        run: k6 cloud --project-id 3640740 --token ${{ secrets.K6_CLOUD_API_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - name: Install k6
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install gnupg2
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+        echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+        sudo apt-get update
+        sudo apt-get -y install k6
+
+    - name: Run k6 test
+      run: k6 run --out cloud --quiet script.js
+
+    - name: Send results to K6 Cloud
+      run: k6 cloud --project-id 3640740 --token ${{ secrets.K6_CLOUD_API_TOKEN }}
