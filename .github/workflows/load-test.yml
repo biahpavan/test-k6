@@ -1,19 +1,15 @@
-name: K6 load test
+name: Main Workflow - Cloud
 on: [push]
 jobs:
   build:
     name: Run k6 test
     runs-on: ubuntu-latest
     steps:
-      - name: 1 - Checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: 2 - Run k6 local test
+      - name: Run k6 cloud test
         uses: grafana/k6-action@v0.3.0
         with:
-          filename: scripts/smoke.js
-      - run: ls & mkdir report & mv report_tests.html report
-      - name: 3 - Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: Report
-          path: report
+          filename: script/smoke.js
+          cloud: true
+          token: ${{ secrets.K6_CLOUD_API_TOKEN }}
