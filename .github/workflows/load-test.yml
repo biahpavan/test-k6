@@ -21,7 +21,7 @@ jobs:
         sudo apt-get -y install k6
 
     - name: Run k6 test
-      run: k6 run --out cloud --quiet script.js
+      run: k6 run --out cloud --quiet scripts/smoke.js
 
     - name: Send results to K6 Cloud
-      run: k6 cloud --project-id 3640740 --token ${{ secrets.K6_CLOUD_API_TOKEN }}
+      run: k6 cloud 792228 --project-id 3640740 --token ${{ secrets.K6_CLOUD_API_TOKEN }}
