@@ -33,7 +33,7 @@ export const options = {
 };
 
 const data = new SharedArray('Json reading', function () {
-    return JSON.parse(open('data/data.json')).crocodiles
+    return JSON.parse(open('../data/data.json')).crocodiles
 });
 
 export default function () {
