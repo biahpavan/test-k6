@@ -14,6 +14,6 @@ jobs:
       - run: ls & mkdir report & report_tests.html report
       - name: 3 - Upload artifact
         uses: actions/upload-artifact@v3
-          with:
-            name: Report
-            path: report
+        with:
+          name: Report
+          path: report
