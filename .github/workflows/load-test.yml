@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Run k6 cloud test
+      - name: Run k6 local test
         uses: grafana/k6-action@v0.3.0
         with:
-          filename: scripts/smoke.js
+          filename: scripts/performance_stage.js
       - name: Send results to K6 Cloud
-        run: k6 cloud 792228 --project-id 3640740 --token ${{ secrets.K6_CLOUD_API_TOKEN }}
+        run: K6_CLOUD_TOKEN=${{ secrets.K6_CLOUD_API_TOKEN }} k6 run --out cloud scripts/performance_stage.js 
