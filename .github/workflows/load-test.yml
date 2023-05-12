@@ -5,9 +5,15 @@ jobs:
     name: Run k6 test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 1 - Checkout
         uses: actions/checkout@v3
-      - name: Run k6 local test
+      - name: 2 - Run k6 local test
         uses: grafana/k6-action@v0.3.0
         with:
           filename: scripts/smoke.js
+      - run: ls & mkdir report & report_tests.html report
+      - name: 3 - Upload artifact
+        uses: actions/upload-artifact@v3
+          with:
+            name: Report
+            path: report
