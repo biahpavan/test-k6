@@ -11,7 +11,7 @@ jobs:
         uses: grafana/k6-action@v0.3.0
         with:
           filename: scripts/smoke.js
-      - run: ls & mkdir report & report_tests.html report
+      - run: ls & mkdir report & mv report_tests.html report
       - name: 3 - Upload artifact
         uses: actions/upload-artifact@v3
         with:
