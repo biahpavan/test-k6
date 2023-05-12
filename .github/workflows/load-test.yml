@@ -2,7 +2,7 @@ name: K6 Load Testing
 
 on:
   push:
-    branches: [main]
+    branches: [grafana-results-cloud]
 
 jobs:
   k6_test:
